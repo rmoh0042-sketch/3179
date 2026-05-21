@@ -1,0 +1,151 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "background": "transparent",
+  "width": "container",
+  "height": 330,
+  "data": {
+    "url": "data/processed/10_state_december_trips_vs_spend.csv"
+  },
+  "transform": [
+    {
+      "calculate": "datum.trips / 1000",
+      "as": "trips_million"
+    },
+    {
+      "calculate": "datum.spend_million / 1000",
+      "as": "spend_billion"
+    },
+    {
+      "calculate": "datum.state == 'New South Wales' ? 'NSW' : datum.state == 'Australian Capital Territory' ? 'ACT' : datum.state == 'Northern Territory' ? 'NT' : datum.state",
+      "as": "state_short"
+    },
+    {
+      "calculate": "datum.state == 'New South Wales' || datum.state == 'Victoria' || datum.state == 'Queensland' ? datum.state_short : ''",
+      "as": "label"
+    }
+  ],
+  "title": {
+    "text": "Do more trips mean more spending?",
+    "subtitle": "States with higher trip volumes generally produced higher domestic spend",
+    "anchor": "start",
+    "font": "Inter",
+    "fontSize": 18,
+    "fontWeight": 700,
+    "subtitleFont": "Inter",
+    "subtitleFontSize": 12,
+    "subtitleFontWeight": 400,
+    "color": "#1d3156",
+    "subtitleColor": "#496894"
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "circle",
+        "size": 280,
+        "color": "#496894",
+        "opacity": 0.85,
+        "stroke": "#ffffff",
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "x": {
+          "field": "trips_million",
+          "type": "quantitative",
+          "scale": {
+            "zero": true
+          },
+          "axis": {
+            "title": "Trips (millions)",
+            "format": ".0f",
+            "labelFont": "Inter",
+            "titleFont": "Inter",
+            "labelColor": "#1d3156",
+            "titleColor": "#1d3156",
+            "gridColor": "#dce8f4"
+          }
+        },
+        "y": {
+          "field": "spend_billion",
+          "type": "quantitative",
+          "scale": {
+            "zero": true
+          },
+          "axis": {
+            "title": "Spend ($B)",
+            "format": ".0f",
+            "labelFont": "Inter",
+            "titleFont": "Inter",
+            "labelColor": "#1d3156",
+            "titleColor": "#1d3156",
+            "gridColor": "#dce8f4"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "state",
+            "type": "nominal",
+            "title": "State/Territory"
+          },
+          {
+            "field": "trips_million",
+            "type": "quantitative",
+            "title": "Trips (millions)",
+            "format": ".1f"
+          },
+          {
+            "field": "spend_billion",
+            "type": "quantitative",
+            "title": "Spend ($B)",
+            "format": ".1f"
+          },
+          {
+            "field": "spend_million",
+            "type": "quantitative",
+            "title": "Spend ($M)",
+            "format": ","
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.label != ''"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 10,
+        "dy": -8,
+        "font": "Inter",
+        "fontSize": 12,
+        "fontWeight": 700,
+        "color": "#1d3156"
+      },
+      "encoding": {
+        "x": {
+          "field": "trips_million",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "spend_billion",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "label"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "domainColor": "#a4b5d1",
+      "tickColor": "#a4b5d1"
+    }
+  }
+}

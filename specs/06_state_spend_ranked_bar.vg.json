@@ -1,0 +1,128 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "background": "transparent",
+  "width": "container",
+  "height": 300,
+  "data": {
+    "url": "data/processed/06_state_december_spend.csv"
+  },
+  "transform": [
+    {
+      "calculate": "datum.spend_million / 1000",
+      "as": "spend_billion"
+    },
+    {
+      "calculate": "'$' + format(datum.spend_million / 1000, '.1f') + 'B'",
+      "as": "spend_label"
+    },
+    {
+        "calculate": "datum.state == 'Australian Capital Territory' ? 'ACT' : datum.state",
+        "as": "state_short"
+    }
+  ],
+  "title": {
+    "text": "Top states by domestic travel spend",
+    "subtitle": "New South Wales generated the highest domestic spend in December 2025",
+    "anchor": "start",
+    "font": "Inter",
+    "fontSize": 18,
+    "fontWeight": 700,
+    "subtitleFont": "Inter",
+    "subtitleFontSize": 12,
+    "subtitleFontWeight": 400,
+    "color": "#1d3156",
+    "subtitleColor": "#496894"
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "cornerRadiusEnd": 6,
+        "color": "#496894"
+      },
+      "encoding": {
+        "y": {
+          "field": "state_short",
+          "type": "nominal",
+          "sort": "-x",
+          "axis": {
+            "title": null,
+            "labelFont": "Inter",
+            "labelColor": "#1d3156",
+            "labelLimit": 170
+          }
+        },
+        "x": {
+          "field": "spend_billion",
+          "type": "quantitative",
+          "scale": {
+            "zero": true
+          },
+          "axis": {
+            "title": "Spend ($B)",
+            "format": ".0f",
+            "labelFont": "Inter",
+            "titleFont": "Inter",
+            "labelColor": "#1d3156",
+            "titleColor": "#1d3156",
+            "gridColor": "#dce8f4"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "state",
+            "type": "nominal",
+            "title": "State/Territory"
+          },
+          {
+            "field": "spend_billion",
+            "type": "quantitative",
+            "title": "Spend ($B)",
+            "format": ".1f"
+          },
+          {
+            "field": "spend_million",
+            "type": "quantitative",
+            "title": "Spend ($M)",
+            "format": ","
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 8,
+        "font": "Inter",
+        "fontSize": 12,
+        "fontWeight": 700,
+        "color": "#1d3156"
+      },
+      "encoding": {
+        "y": {
+          "field": "state_short",
+          "type": "nominal",
+          "sort": "-x"
+        },
+        "x": {
+          "field": "spend_billion",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "spend_label"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "domainColor": "#a4b5d1",
+      "tickColor": "#a4b5d1"
+    }
+  }
+}

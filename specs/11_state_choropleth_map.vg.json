@@ -1,0 +1,97 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "background": "transparent",
+  "width": "container",
+  "height": 520,
+  "data": {
+  "url": "data/map/australia_states_from_tourism_regions.geojson",
+  "format": {
+    "type": "json",
+    "property": "features"
+  }
+},
+  "transform": [
+    {
+      "lookup": "properties.state",
+      "from": {
+        "data": {
+          "url": "data/processed/map_state_december_trips_spend.csv"
+        },
+        "key": "state",
+        "fields": ["trips", "spend_million"]
+      }
+    },
+    {
+      "calculate": "datum.trips / 1000",
+      "as": "trips_million"
+    },
+    {
+      "calculate": "datum.spend_million / 1000",
+      "as": "spend_billion"
+    }
+  ],
+  "title": {
+    "text": "Domestic trips by state",
+    "subtitle": "Colour shows total domestic trips in the December quarter 2025",
+    "anchor": "start",
+    "font": "Inter",
+    "fontSize": 20,
+    "fontWeight": 700,
+    "subtitleFont": "Inter",
+    "subtitleFontSize": 13,
+    "subtitleFontWeight": 400,
+    "color": "#1d3156",
+    "subtitleColor": "#496894"
+  },
+  "projection": {
+    "type": "mercator"
+  },
+  "mark": {
+    "type": "geoshape",
+    "stroke": "#ffffff",
+    "strokeWidth": 1
+  },
+  "encoding": {
+    "color": {
+      "field": "trips_million",
+      "type": "quantitative",
+      "title": "Trips (millions)",
+      "scale": {
+        "domain": [0, 35],
+        "range": ["#dce8f4", "#a4b5d1", "#496894", "#1d3156"]
+      },
+      "legend": {
+        "orient": "right",
+        "labelFont": "Inter",
+        "titleFont": "Inter",
+        "labelColor": "#1d3156",
+        "titleColor": "#1d3156",
+        "format": ".0f"
+      }
+    },
+    "tooltip": [
+      {
+        "field": "properties.state",
+        "type": "nominal",
+        "title": "State/Territory"
+      },
+      {
+        "field": "trips_million",
+        "type": "quantitative",
+        "title": "Trips (millions)",
+        "format": ".1f"
+      },
+      {
+        "field": "spend_billion",
+        "type": "quantitative",
+        "title": "Spend ($B)",
+        "format": ".1f"
+      }
+    ]
+  },
+  "config": {
+    "view": {
+      "stroke": null
+    }
+  }
+}

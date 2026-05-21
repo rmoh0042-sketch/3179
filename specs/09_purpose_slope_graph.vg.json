@@ -1,0 +1,173 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "background": "transparent",
+  "width": "container",
+  "height": 330,
+  "data": {
+    "url": "data/processed/09_purpose_march_vs_december.csv"
+  },
+  "transform": [
+    {
+      "fold": ["march", "december"],
+      "as": ["quarter_raw", "trips"]
+    },
+    {
+      "calculate": "datum.quarter_raw == 'march' ? 'Mar 2025' : 'Dec 2025'",
+      "as": "quarter"
+    },
+    {
+      "calculate": "datum.trips / 1000",
+      "as": "trips_million"
+    },
+    {
+      "calculate": "datum.purpose == 'Visiting friends and relatives' ? 'VFR' : datum.purpose",
+      "as": "purpose_short"
+    },
+    {
+      "calculate": "format(datum.trips / 1000, '.1f') + 'M'",
+      "as": "trips_label"
+    }
+  ],
+  "title": {
+    "text": "Purpose change from March to December",
+    "subtitle": "Holiday and VFR trips increased, while business trips declined",
+    "anchor": "start",
+    "font": "Inter",
+    "fontSize": 18,
+    "fontWeight": 700,
+    "subtitleFont": "Inter",
+    "subtitleFontSize": 12,
+    "subtitleFontWeight": 400,
+    "color": "#1d3156",
+    "subtitleColor": "#496894"
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "line",
+        "point": {
+          "filled": true,
+          "size": 90,
+          "stroke": "#ffffff",
+          "strokeWidth": 2
+        },
+        "strokeWidth": 3
+      },
+      "encoding": {
+        "x": {
+          "field": "quarter",
+          "type": "ordinal",
+          "sort": ["Mar 2025", "Dec 2025"],
+          "axis": {
+            "title": null,
+            "labelAngle": 0,
+            "labelFont": "Inter",
+            "labelColor": "#1d3156"
+          }
+        },
+        "y": {
+          "field": "trips_million",
+          "type": "quantitative",
+          "scale": {
+            "zero": true
+          },
+          "axis": {
+            "title": "Trips (millions)",
+            "format": ".0f",
+            "labelFont": "Inter",
+            "titleFont": "Inter",
+            "labelColor": "#1d3156",
+            "titleColor": "#1d3156",
+            "gridColor": "#dce8f4"
+          }
+        },
+        "color": {
+          "field": "purpose_short",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Holiday", "VFR", "Other", "Business"],
+            "range": ["#1d3156", "#496894", "#a4b5d1", "#fed6ce"]
+          },
+          "legend": {
+            "title": "Purpose",
+            "orient": "bottom",
+            "labelFont": "Inter",
+            "titleFont": "Inter",
+            "labelColor": "#1d3156",
+            "titleColor": "#1d3156"
+          }
+        },
+        "detail": {
+          "field": "purpose_short",
+          "type": "nominal"
+        },
+        "tooltip": [
+          {
+            "field": "purpose",
+            "type": "nominal",
+            "title": "Purpose"
+          },
+          {
+            "field": "quarter",
+            "type": "ordinal",
+            "title": "Quarter"
+          },
+          {
+            "field": "trips_million",
+            "type": "quantitative",
+            "title": "Trips (millions)",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.quarter == 'Dec 2025'"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 10,
+        "font": "Inter",
+        "fontSize": 12,
+        "fontWeight": 700
+      },
+      "encoding": {
+        "x": {
+          "field": "quarter",
+          "type": "ordinal",
+          "sort": ["Mar 2025", "Dec 2025"]
+        },
+        "y": {
+          "field": "trips_million",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "purpose_short"
+        },
+        "color": {
+          "field": "purpose_short",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Holiday", "VFR", "Other", "Business"],
+            "range": ["#1d3156", "#496894", "#a4b5d1", "#fed6ce"]
+          },
+          "legend": null
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "domainColor": "#a4b5d1",
+      "tickColor": "#a4b5d1"
+    }
+  }
+}

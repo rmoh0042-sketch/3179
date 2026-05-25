@@ -6,6 +6,12 @@
   "data": {
     "url": "data/processed/01_total_trips_by_quarter.csv"
   },
+  "transform": [
+    {
+      "calculate": "datum.total_trips / 1000",
+      "as": "trips_million"
+    }
+  ],
   "title": {
     "text": "Total domestic trips over 2025",
     "subtitle": "Trips increased from 94.1M in March to 100.3M in December",
@@ -40,12 +46,14 @@
           }
         },
         "y": {
-          "field": "total_trips",
+          "field": "trips_million",
           "type": "quantitative",
-          "scale": {"zero": true},
+          "scale": {
+            "zero": true
+          },
           "axis": {
-            "title": "Trips ('000)",
-            "format": "~s",
+            "title": "Trips (million)",
+            "format": ".0f",
             "labelFont": "Inter",
             "titleFont": "Inter",
             "labelColor": "#1d3156",
@@ -54,35 +62,101 @@
           }
         },
         "tooltip": [
-          {"field": "quarter", "type": "ordinal", "title": "Quarter"},
-          {"field": "total_trips", "type": "quantitative", "title": "Trips ('000)", "format": ","}
+          {
+            "field": "quarter",
+            "type": "ordinal",
+            "title": "Quarter"
+          },
+          {
+            "field": "trips_million",
+            "type": "quantitative",
+            "title": "Trips (million)",
+            "format": ".1f"
+          }
         ]
       }
     },
     {
-      "mark": {"type": "point", "filled": true, "size": 120, "color": "#1d3156", "stroke": "#f7fbff", "strokeWidth": 2},
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 120,
+        "color": "#1d3156",
+        "stroke": "#f7fbff",
+        "strokeWidth": 2
+      },
       "encoding": {
-        "x": {"field": "quarter", "type": "ordinal", "sort": ["Mar 2025", "Jun 2025", "Sep 2025", "Dec 2025"]},
-        "y": {"field": "total_trips", "type": "quantitative", "scale": {"zero": false}},
+        "x": {
+          "field": "quarter",
+          "type": "ordinal",
+          "sort": ["Mar 2025", "Jun 2025", "Sep 2025", "Dec 2025"]
+        },
+        "y": {
+          "field": "trips_million",
+          "type": "quantitative",
+          "scale": {
+            "zero": true
+          }
+        },
         "tooltip": [
-          {"field": "quarter", "type": "ordinal", "title": "Quarter"},
-          {"field": "total_trips", "type": "quantitative", "title": "Trips ('000)", "format": ","}
+          {
+            "field": "quarter",
+            "type": "ordinal",
+            "title": "Quarter"
+          },
+          {
+            "field": "trips_million",
+            "type": "quantitative",
+            "title": "Trips (million)",
+            "format": ".1f"
+          }
         ]
       }
     },
     {
-      "data": {"values": [{"quarter": "Dec 2025", "total_trips": 100280, "label": "100.3M trips"}]},
-      "mark": {"type": "text", "align": "left", "baseline": "middle", "dx": -25, "dy": -17
-      , "font": "Inter", "fontWeight": 700, "fontSize": 12, "color": "#1d3156"},
+      "data": {
+        "values": [
+          {
+            "quarter": "Dec 2025",
+            "trips_million": 100.28,
+            "label": "100.3 million"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": -55,
+        "dy": -18,
+        "font": "Inter",
+        "fontWeight": 700,
+        "fontSize": 12,
+        "color": "#1d3156"
+      },
       "encoding": {
-        "x": {"field": "quarter", "type": "ordinal", "sort": ["Mar 2025", "Jun 2025", "Sep 2025", "Dec 2025"]},
-        "y": {"field": "total_trips", "type": "quantitative"},
-        "text": {"field": "label"}
+        "x": {
+          "field": "quarter",
+          "type": "ordinal",
+          "sort": ["Mar 2025", "Jun 2025", "Sep 2025", "Dec 2025"]
+        },
+        "y": {
+          "field": "trips_million",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "label"
+        }
       }
     }
   ],
   "config": {
-    "view": {"stroke": null},
-    "axis": {"domainColor": "#a4b5d1", "tickColor": "#a4b5d1"}
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "domainColor": "#a4b5d1",
+      "tickColor": "#a4b5d1"
+    }
   }
 }

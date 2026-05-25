@@ -6,9 +6,15 @@
   "data": {
     "url": "data/processed/02_total_spend_by_quarter.csv"
   },
+  "transform": [
+    {
+      "calculate": "datum.total_spend_million / 1000",
+      "as": "spend_billion"
+    }
+  ],
   "title": {
     "text": "Total domestic travel spend over 2025",
-    "subtitle": "Spending dipped in June, then recovered to about $40.0B in December",
+    "subtitle": "Spending dipped in June, then recovered in December",
     "anchor": "start",
     "font": "Inter",
     "fontSize": 18,
@@ -21,46 +27,140 @@
   },
   "layer": [
     {
-      "mark": {"type": "line", "point": false, "strokeWidth": 4, "color": "#a4b5d1"},
+      "mark": {
+        "type": "area",
+        "line": {
+          "color": "#496894",
+          "strokeWidth": 3
+        },
+        "point": false,
+        "color": "#a4b5d1",
+        "opacity": 0.45
+      },
       "encoding": {
         "x": {
           "field": "quarter",
           "type": "ordinal",
           "sort": ["Mar 2025", "Jun 2025", "Sep 2025", "Dec 2025"],
-          "axis": {"title": null, "labelAngle": 0, "labelFont": "Inter", "labelColor": "#1d3156"}
+          "axis": {
+            "title": null,
+            "labelAngle": 0,
+            "labelFont": "Inter",
+            "labelColor": "#1d3156"
+          }
         },
         "y": {
-          "field": "total_spend_million",
+          "field": "spend_billion",
           "type": "quantitative",
-          "scale": {"zero": true},
-          "axis": {"title": "Spend ($M)", "format": "~s", "labelExpr": "replace(datum.label, 'k', 'M')", "labelFont": "Inter", "titleFont": "Inter", "labelColor": "#1d3156", "titleColor": "#1d3156", "gridColor": "#dce8f4"}
+          "scale": {
+            "zero": true
+          },
+          "axis": {
+            "title": "Spend ($B)",
+            "format": ".1f",
+            "labelFont": "Inter",
+            "titleFont": "Inter",
+            "labelColor": "#1d3156",
+            "titleColor": "#1d3156",
+            "gridColor": "#dce8f4"
+          }
         },
         "tooltip": [
-          {"field": "quarter", "type": "ordinal", "title": "Quarter"},
-          {"field": "total_spend_million", "type": "quantitative", "title": "Spend ($M)", "format": ","}
+          {
+            "field": "quarter",
+            "type": "ordinal",
+            "title": "Quarter"
+          },
+          {
+            "field": "spend_billion",
+            "type": "quantitative",
+            "title": "Spend ($B)",
+            "format": ".1f"
+          }
         ]
       }
     },
     {
-      "mark": {"type": "point", "filled": true, "size": 120, "color": "#496894", "stroke": "#f7fbff", "strokeWidth": 2},
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 120,
+        "color": "#496894",
+        "stroke": "#f7fbff",
+        "strokeWidth": 2
+      },
       "encoding": {
-        "x": {"field": "quarter", "type": "ordinal", "sort": ["Mar 2025", "Jun 2025", "Sep 2025", "Dec 2025"]},
-        "y": {"field": "total_spend_million", "type": "quantitative", "scale": {"zero": false}},
+        "x": {
+          "field": "quarter",
+          "type": "ordinal",
+          "sort": ["Mar 2025", "Jun 2025", "Sep 2025", "Dec 2025"]
+        },
+        "y": {
+          "field": "spend_billion",
+          "type": "quantitative",
+          "scale": {
+            "zero": true
+          }
+        },
         "tooltip": [
-          {"field": "quarter", "type": "ordinal", "title": "Quarter"},
-          {"field": "total_spend_million", "type": "quantitative", "title": "Spend ($M)", "format": ","}
+          {
+            "field": "quarter",
+            "type": "ordinal",
+            "title": "Quarter"
+          },
+          {
+            "field": "spend_billion",
+            "type": "quantitative",
+            "title": "Spend ($B)",
+            "format": ".1f"
+          }
         ]
       }
     },
     {
-      "data": {"values": [{"quarter": "Dec 2025", "total_spend_million": 39993, "label": "$40.0B spend"}]},
-      "mark": {"type": "text", "align": "left", "baseline": "middle", "dx": -30, "dy": -14, "font": "Inter", "fontWeight": 700, "fontSize": 12, "color": "#1d3156"},
+      "data": {
+        "values": [
+          {
+            "quarter": "Dec 2025",
+            "spend_billion": 39.993,
+            "label": "40.0 billion"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": -45,
+        "dy": -14,
+        "font": "Inter",
+        "fontWeight": 700,
+        "fontSize": 12,
+        "color": "#1d3156"
+      },
       "encoding": {
-        "x": {"field": "quarter", "type": "ordinal", "sort": ["Mar 2025", "Jun 2025", "Sep 2025", "Dec 2025"]},
-        "y": {"field": "total_spend_million", "type": "quantitative"},
-        "text": {"field": "label"}
+        "x": {
+          "field": "quarter",
+          "type": "ordinal",
+          "sort": ["Mar 2025", "Jun 2025", "Sep 2025", "Dec 2025"]
+        },
+        "y": {
+          "field": "spend_billion",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "label"
+        }
       }
     }
   ],
-  "config": {"view": {"stroke": null}, "axis": {"domainColor": "#a4b5d1", "tickColor": "#a4b5d1"}}
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "domainColor": "#a4b5d1",
+      "tickColor": "#a4b5d1"
+    }
+  }
 }

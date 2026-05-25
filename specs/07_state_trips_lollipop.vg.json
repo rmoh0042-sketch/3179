@@ -35,11 +35,11 @@
   },
   "layer": [
     {
-      "mark": {
-        "type": "bar",
-        "height": 3,
-        "color": "#dce8f4"
-      },
+  "mark": {
+    "type": "bar",
+    "height": 3,
+    "color": "#fed6ce"
+  },
       "encoding": {
         "y": {
           "field": "state_short",

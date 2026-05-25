@@ -1,0 +1,62 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "background": "transparent",
+  "width": "container",
+  "height": 340,
+  "data": {
+    "url": "data/processed/03_purpose_december_trips.csv"
+  },
+  "title": {
+    "text": "Why Australians travelled in December 2025",
+    "subtitle": "Holiday travel was the largest purpose category",
+    "anchor": "start",
+    "font": "Inter",
+    "fontSize": 18,
+    "fontWeight": 700,
+    "subtitleFont": "Inter",
+    "subtitleFontSize": 12,
+    "subtitleFontWeight": 400,
+    "color": "#1d3156",
+    "subtitleColor": "#496894"
+  },
+  "layer": [
+    {
+      "mark": {"type": "bar", "cornerRadiusEnd": 6, "color": "#496894"},
+      "encoding": {
+        "x": {
+          "field": "trips",
+          "type": "quantitative",
+          "axis": {"title": "Trips ('000)", "format": "~s", "gridColor": "#dce8f4", "labelFont": "Inter", "titleFont": "Inter", "labelColor": "#1d3156", "titleColor": "#1d3156"}
+        },
+        "y": {
+          "field": "purpose",
+          "type": "nominal",
+          "sort": "-x",
+          "axis": {"title": null, "labelFont": "Inter", "labelColor": "#1d3156", "labelLimit": 190}
+        },
+        "tooltip": [
+          {"field": "purpose", "type": "nominal", "title": "Purpose"},
+          {"field": "trips", "type": "quantitative", "title": "Trips ('000)", "format": ","}
+        ]
+      }
+    },
+    {
+      "mark": {"type": "text", "align": "left", "baseline": "middle", "dx": 8, "font": "Roboto Condensed", "fontSize": 13, "fontWeight": 700, "color": "#1d3156"},
+      "encoding": {
+        "x": {"field": "trips", "type": "quantitative"},
+        "y": {"field": "purpose", "type": "nominal", "sort": "-x"},
+        "text": {"field": "trips", "type": "quantitative", "format": ","}
+      }
+    },
+    {
+      "data": {"values": [{"purpose": "Holiday", "trips": 50299, "label": "Holiday trips led December"}]},
+      "mark": {"type": "text", "align": "left", "baseline": "middle", "dx": -85, "dy": -45, "font": "Inter", "fontSize": 12, "fontWeight": 700, "color": "#b76b5d"},
+      "encoding": {
+        "x": {"field": "trips", "type": "quantitative"},
+        "y": {"field": "purpose", "type": "nominal"},
+        "text": {"field": "label"}
+      }
+    }
+  ],
+  "config": {"view": {"stroke": null}, "axis": {"domainColor": "#a4b5d1", "tickColor": "#a4b5d1"}}
+}

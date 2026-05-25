@@ -1,0 +1,153 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "background": "transparent",
+  "width": "container",
+  "height": 360,
+  "data": {
+    "url": "data/processed/08_state_december_day_vs_overnight.csv"
+  },
+  "transform": [
+    {
+      "calculate": "datum.day_trips / 1000",
+      "as": "day_million"
+    },
+    {
+      "calculate": "datum.overnight_trips / 1000",
+      "as": "overnight_million"
+    },
+    {
+      "calculate": "datum.state == 'New South Wales' ? 'NSW' : datum.state == 'Australian Capital Territory' ? 'ACT' : datum.state == 'Northern Territory' ? 'NT' : datum.state",
+      "as": "state_short"
+    }
+  ],
+  "title": {
+    "text": "Day trips vs overnight trips by state",
+    "subtitle": "Day trips were higher than overnight trips in every state",
+    "anchor": "start",
+    "font": "Inter",
+    "fontSize": 18,
+    "fontWeight": 700,
+    "subtitleFont": "Inter",
+    "subtitleFontSize": 12,
+    "subtitleFontWeight": 400,
+    "color": "#1d3156",
+    "subtitleColor": "#496894"
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "rule",
+        "strokeWidth": 3,
+        "color": "#dce8f4"
+      },
+      "encoding": {
+        "y": {
+          "field": "state_short",
+          "type": "nominal",
+          "sort": {
+            "field": "day_million",
+            "order": "descending"
+          }
+        },
+        "x": {
+          "field": "overnight_million",
+          "type": "quantitative"
+        },
+        "x2": {
+          "field": "day_million"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "fold": ["day_million", "overnight_million"],
+          "as": ["trip_type", "trips_million"]
+        },
+        {
+          "calculate": "datum.trip_type == 'day_million' ? 'Day trips' : 'Overnight trips'",
+          "as": "trip_type_label"
+        }
+      ],
+      "mark": {
+        "type": "circle",
+        "size": 210,
+        "stroke": "#ffffff",
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "y": {
+          "field": "state_short",
+          "type": "nominal",
+          "sort": {
+            "field": "day_million",
+            "order": "descending"
+          },
+          "axis": {
+            "title": null,
+            "labelFont": "Inter",
+            "labelColor": "#1d3156",
+            "labelLimit": 160
+          }
+        },
+        "x": {
+          "field": "trips_million",
+          "type": "quantitative",
+          "scale": {
+            "zero": true
+          },
+          "axis": {
+            "title": "Trips (millions)",
+            "format": ".0f",
+            "labelFont": "Inter",
+            "titleFont": "Inter",
+            "labelColor": "#1d3156",
+            "titleColor": "#1d3156",
+            "gridColor": "#dce8f4"
+          }
+        },
+        "color": {
+          "field": "trip_type_label",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Day trips", "Overnight trips"],
+            "range": ["#496894", "#fed6ce"]
+          },
+          "legend": {
+            "title": null,
+            "orient": "bottom",
+            "labelFont": "Inter",
+            "labelColor": "#1d3156"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "state",
+            "type": "nominal",
+            "title": "State/Territory"
+          },
+          {
+            "field": "trip_type_label",
+            "type": "nominal",
+            "title": "Trip type"
+          },
+          {
+            "field": "trips_million",
+            "type": "quantitative",
+            "title": "Trips (millions)",
+            "format": ".1f"
+          }
+        ]
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "domainColor": "#a4b5d1",
+      "tickColor": "#a4b5d1"
+    }
+  }
+}

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Where Australia Escapes</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;800&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
+  <header class="hero">
+    <p class="eyebrow">Australian domestic tourism · 2025</p>
+    <h1>Where Australia Escapes</h1>
+    <p class="subtitle">
+      A visual story of domestic trips, spending, and travel behaviour across Australia in 2025.
+    </p>
+
+    <div class="kpi-grid">
+      <article class="kpi-card">
+        <p class="kpi-label">December trips</p>
+        <p class="kpi-value">100.3M</p>
+      </article>
+      <article class="kpi-card">
+        <p class="kpi-label">December spend</p>
+        <p class="kpi-value">$40.0B</p>
+      </article>
+      <article class="kpi-card">
+        <p class="kpi-label">Visitor nights</p>
+        <p class="kpi-value">96.2M</p>
+      </article>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- SECTION 1 -->
+    <section>
+      <div class="section-intro">
+        <h2>The big picture</h2>
+        <p>
+          This section gives the overall trend of Australian domestic tourism in 2025. It shows how trip volume and spending changed across the year before looking deeper into location and travel purpose.
+        </p>
+      </div>
+
+      <div class="chart-grid">
+        <article class="chart-card">
+          <div id="chart1" class="chart"></div>
+          <p class="chart-note">Domestic trips increased across 2025, showing stronger travel activity by the December quarter.</p>
+        </article>
+
+        <article class="chart-card">
+          <div id="chart2" class="chart"></div>
+          <p class="chart-note">Spending dipped in the middle of the year but recovered to nearly $40.0B by December.</p>
+        </article>
+      </div>
+
+      <p class="section-takeaway">
+        Takeaway: Domestic tourism became stronger toward the end of 2025, with both trips and spending rising by December.
+      </p>
+    </section>
+
+
+    <!-- SECTION 2 -->
+    <section>
+      <div class="section-intro">
+        <h2>Where Australians travelled</h2>
+        <p>
+          This section shows how domestic tourism was distributed across Australia. The map and ranking charts highlight the states that attracted the most trips and generated the highest spending.
+        </p>
+      </div>
+
+      <div class="chart-grid">
+        <article class="chart-card wide">
+          <div id="map" class="chart"></div>
+         <p class="chart-note">Domestic tourism was concentrated in the eastern states, with NSW, Victoria and Queensland forming the strongest travel cluster.</p>
+        </article>
+
+        <article class="chart-card wide">
+          <div id="chart7" class="chart"></div>
+          <p class="chart-note">NSW and Victoria led trip volume, showing that domestic travel demand was strongest in the larger eastern states.</p>
+        </article>
+
+        <article class="chart-card wide">
+          <div id="chart6" class="chart"></div>
+          <p class="chart-note">NSW generated the highest travel spend, while Victoria and Queensland also contributed strongly to domestic expenditure.</p>
+        </article>
+      </div>
+
+      <p class="section-takeaway">
+        Takeaway: The eastern states dominated domestic tourism, especially NSW, Victoria and Queensland.
+      </p>
+    </section>
+
+
+    <!-- SECTION 3 -->
+    <section>
+      <div class="section-intro">
+        <h2>Why Australians travelled</h2>
+        <p>
+          This section explores the main reasons behind domestic travel. It compares holiday, visiting friends and relatives, business, and other travel purposes across trips and visitor nights.
+        </p>
+      </div>
+
+      <div class="chart-grid">
+        <article class="chart-card wide">
+          <div id="chart3" class="chart"></div>
+          <p class="chart-note">Holiday travel was the main reason Australians travelled in December, followed by visiting friends and relatives.</p>
+        </article>
+
+        <article class="chart-card wide">
+          <div id="chart4" class="chart"></div>
+          <p class="chart-note">Holiday travel stayed the dominant purpose across 2025, while business travel remained a smaller share.</p>
+        </article>
+
+        <article class="chart-card wide">
+          <div id="chart5" class="chart"></div>
+          <p class="chart-note">Holiday and VFR travel produced the most visitor nights, showing that leisure and family-related trips created longer stays.</p>
+        </article>
+      </div>
+
+      <p class="section-takeaway">
+        Takeaway: Holiday travel was the main driver of domestic tourism, while VFR travel also created many visitor nights.
+      </p>
+    </section>
+
+
+    <!-- SECTION 4 -->
+    <section>
+      <div class="section-intro">
+        <h2>How Australians travelled</h2>
+        <p>
+          This section looks more closely at travel behaviour. It compares day and overnight trips, shows how travel purposes changed from March to December, and connects trip volume with spending.
+        </p>
+      </div>
+
+      <div class="chart-grid">
+        <article class="chart-card wide">
+          <div id="chart8" class="chart"></div>
+          <p class="chart-note">Day trips were higher than overnight trips in most states, while ACT was the exception with slightly more overnight trips.</p>
+        </article>
+
+        <article class="chart-card wide">
+          <div id="chart9" class="chart"></div>
+          <p class="chart-note">Holiday and VFR travel increased from March to December, while business travel declined across the year.</p>
+        </article>
+
+        <article class="chart-card wide">
+          <div id="chart10" class="chart"></div>
+          <p class="chart-note">States with more trips generally generated more spending, with NSW standing out as the strongest travel market.</p>
+        </article>
+      </div>
+
+      <p class="section-takeaway">
+        Takeaway: Most states relied heavily on day trips, while high trip volume was closely linked with higher spending.
+      </p>
+    </section>
+
+
+    <footer class="footer">
+      <strong>Author:</strong> Ranudi.W.C.Mohotty<br>
+      <strong>Date:</strong> 2026
+
+      <p>
+        <strong>Data source:</strong> Tourism Research Australia, Domestic Tourism Statistics, 2025 domestic tourism results.
+      </p>
+
+      <p>
+        <strong>Geographic source:</strong> Australian Bureau of Statistics, Tourism Region 2021 boundaries.
+      </p>
+
+      <p>
+        <strong>Map note:</strong> ABS Tourism Region 2021 boundaries were dissolved into state and territory boundaries because the tourism values used in this dashboard are reported at state level.
+      </p>
+
+      <p>
+        <strong>Unit note:</strong> Trips and visitor nights are shown in millions. Spending is shown in billions of Australian dollars where converted from millions.
+      </p>
+
+      <p>
+        <strong>AI acknowledgement:</strong> Generative AI was used to support planning, wording, data cleaning, and code drafting. Final design decisions and review were completed by the author.
+      </p>
+    </footer>
+
+  </main>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

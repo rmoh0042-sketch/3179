@@ -1,0 +1,130 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "background": "transparent",
+  "width": "container",
+  "height": 300,
+  "data": {
+    "url": "data/processed/05_purpose_december_nights.csv"
+  },
+  "transform": [
+    {
+      "calculate": "datum.nights / 1000",
+      "as": "nights_million"
+    },
+    {
+      "calculate": "format(datum.nights / 1000, '.1f') + 'M'",
+      "as": "nights_label"
+    },
+    {
+        "calculate": "datum.purpose == 'Visiting friends and relatives' ? 'VFR' : datum.purpose",
+        "as": "purpose_short"
+    }
+  ],
+  "title": {
+    "text": "Visitor nights by travel purpose",
+    "subtitle": "Holiday travel generated the most visitor nights in December 2025",
+    "anchor": "start",
+    "font": "Inter",
+    "fontSize": 18,
+    "fontWeight": 700,
+    "subtitleFont": "Inter",
+    "subtitleFontSize": 12,
+    "subtitleFontWeight": 400,
+    "color": "#1d3156",
+    "subtitleColor": "#496894"
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "circle",
+        "size": 280,
+        "color": "#496894",
+        "stroke": "#ffffff",
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "y": {
+          "field": "purpose_short",
+          "type": "nominal",
+          "sort": "-x",
+          "axis": {
+            "title": null,
+            "labelFont": "Inter",
+            "labelColor": "#1d3156",
+            "labelLimit": 220
+          }
+        },
+        "x": {
+          "field": "nights_million",
+          "type": "quantitative",
+          "scale": {
+            "zero": true
+          },
+          "axis": {
+            "title": "Visitor nights (millions)",
+            "format": ".0f",
+            "labelFont": "Inter",
+            "titleFont": "Inter",
+            "labelColor": "#1d3156",
+            "titleColor": "#1d3156",
+            "gridColor": "#dce8f4"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "purpose",
+            "type": "nominal",
+            "title": "Purpose"
+          },
+          {
+            "field": "nights_million",
+            "type": "quantitative",
+            "title": "Visitor nights (millions)",
+            "format": ".1f"
+          },
+          {
+            "field": "nights",
+            "type": "quantitative",
+            "title": "Visitor nights ('000)",
+            "format": ","
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 12,
+        "font": "Inter",
+        "fontSize": 12,
+        "fontWeight": 700,
+        "color": "#1d3156"
+      },
+      "encoding": {
+        "y": {
+          "field": "purpose_short",
+          "type": "nominal",
+          "sort": "-x"
+        },
+        "x": {
+          "field": "nights_million",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "nights_label"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "domainColor": "#a4b5d1",
+      "tickColor": "#a4b5d1"
+    }
+  }
+}

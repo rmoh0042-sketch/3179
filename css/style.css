@@ -159,4 +159,31 @@ main {
   .hero {
     padding: 52px 24px 42px;
   }
+  
+}
+
+.section-takeaway {
+  margin-top: 18px;
+  padding: 14px 18px;
+  border-left: 4px solid #fed6ce;
+  background: rgba(255, 255, 255, 0.75);
+  color: #1d3156;
+  font-weight: 600;
+  border-radius: 12px;
+}
+
+section {
+  margin-bottom: 72px;
+}
+
+.chart-card {
+  overflow: hidden;
+}
+
+.chart-note {
+  line-height: 1.5;
+}
+
+.footer {
+  line-height: 1.6;
 }
